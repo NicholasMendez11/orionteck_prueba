@@ -1,12 +1,18 @@
 import Image from "next/image";
 import { useState } from "react";
 import AvatarPic from '../../public/assets/avatar.png'
+import Girl from '../../public/assets/girl.png'
+import Unknown from '../../public/assets/unknow.png'
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Home() {
   const [show, setShow] = useState(null);
+
+  const customers =  useSelector((state)=> state.customer)
+  console.log(customers)
   return (
     <>
-      <div className="w-full sm:px-6">
+      <div className="w-full sm:px-2">
         <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
           <div className="sm:flex items-center justify-between">
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">
@@ -32,19 +38,20 @@ export default function Home() {
                 <th className="font-normal text-left pl-20">Correo</th>
               </tr>
             </thead>
-            <tbody className="w-full">
+            {customers.map(customer => (
+              <tbody className="w-full" key={customer.id}>
               <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
                 <td className="pl-4 cursor-pointer">
                   <div className="flex items-center">
                     <div className="w-10 h-10">
                       <Image
-                        src={AvatarPic}
+                        src={customer.gender == "Hombre"? AvatarPic:Girl}
                         alt="Foto del cliente"
                       />
                     </div>
                     <div className="pl-4">
                       <p className="font-medium">
-                       Roberto Antonio Mendez { /*Nombre del cleinte va aqui*/}
+                       {customer.fullName}
                       </p>
                       <p className="text-xs leading-3 text-gray-600 pt-2">
                         Nombre completo
@@ -54,26 +61,26 @@ export default function Home() {
                 </td>
                 <td className="pl-12">
                   <p className="text-sm font-medium leading-none text-gray-800">
-                      Hombre
+                    {customer.gender}
                   </p>
            
                   <hr class="solid" />
                   
                 </td>
                 <td className="pl-12">
-                  <p className="font-medium">53 años</p>
+                  <p className="font-medium">{customer.age}</p>
                   <p className="text-xs leading-3 text-gray-600 mt-2">
                      18/05/1969
                   </p>
                 </td>
                 <td className="pl-20">
-                  <p className="font-medium">809-873-6034</p>
+                  <p className="font-medium">{customer.phone}</p>
                   <p className="text-xs leading-3 text-gray-600 mt-2">
                     Numero de contacto
                   </p>
                 </td>
                 <td className="pl-20">
-                  <p className="font-medium">roberto@mendez.com</p>
+                  <p className="font-medium">{customer.email}</p>
                   <p className="text-xs leading-3 text-gray-600 mt-2">
                     Correo
                   </p>
@@ -167,6 +174,7 @@ export default function Home() {
 
 
             </tbody>
+            ))}
           </table>
         </div>
       </div>
