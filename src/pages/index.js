@@ -26,10 +26,10 @@ export default function Home() {
             <thead>
               <tr className="h-16 w-full text-sm leading-none text-gray-800">
                 <th className="font-normal text-left pl-4">Cliente</th>
-                <th className="font-normal text-left pl-12">Progress</th>
-                <th className="font-normal text-left pl-12">Tasks</th>
-                <th className="font-normal text-left pl-20">Budget</th>
-                <th className="font-normal text-left pl-20">Deadline</th>
+                <th className="font-normal text-left pl-12">Sexo</th>
+                <th className="font-normal text-left pl-12">Edad</th>
+                <th className="font-normal text-left pl-20">Telefono</th>
+                <th className="font-normal text-left pl-20">Correo</th>
               </tr>
             </thead>
             <tbody className="w-full">
@@ -56,9 +56,9 @@ export default function Home() {
                   <p className="text-sm font-medium leading-none text-gray-800">
                       Hombre
                   </p>
-                  <div className="w-24 h-3 bg-gray-100 rounded-full mt-2">
-                    <div className="w-20 h-3 bg-green-progress rounded-full" />
-                  </div>
+           
+                  <hr class="solid" />
+                  
                 </td>
                 <td className="pl-12">
                   <p className="font-medium">53 años</p>
@@ -154,10 +154,10 @@ export default function Home() {
                   {show == 0 && (
                     <div className="dropdown-content bg-white shadow w-24 absolute z-30 right-0 mr-6 ">
                       <div className="text-xs w-full hover:bg-[#808cf6] py-4 px-4 cursor-pointer hover:text-white">
-                        <p>Edit</p>
+                        <p>Editar</p>
                       </div>
                       <div className="text-xs w-full hover:bg-[#808cf6] py-4 px-4 cursor-pointer hover:text-white">
-                        <p>Delete</p>
+                        <p>Eliminar</p>
                       </div>
                     </div>
                   )}
