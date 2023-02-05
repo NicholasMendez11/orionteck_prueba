@@ -5,7 +5,8 @@ function Layout({children}) {
 
     function HandleDropdown(){
         setDropdown(!dropdown)
-        console.log(dropdown)
+
+    console.log(dropdown)
     }
 
     return (
