@@ -14,7 +14,7 @@ const customerSlice = createSlice({
         removeCustomer: (state, action) => {
             console.log('RemoveCusotmerState', state)
             console.log('RemoveCustomerAction', action)
-            return state.filter((customer) => customer.id !== action.payload) //.id
+            return state.filter((customer) => customer.id !== action.payload) 
             
 
         },
