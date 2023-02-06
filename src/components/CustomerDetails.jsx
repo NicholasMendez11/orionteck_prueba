@@ -94,6 +94,7 @@ export default function CustomerDetails({ setCustomerDetails, customer }) {
                           <a
                             href="https://www.google.com/maps"
                             target="_blank"
+                            rel="noreferrer"
                             className="font-medium mr-2 text-[#2f54b9] hover:text-indigo-500"
                           >
                             Buscar
