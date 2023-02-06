@@ -8,15 +8,13 @@ const customerSlice = createSlice({
   reducers: {
     addCustomer: (state, action) => {
       state.push(action.payload);
-      console.log(state);
+      
     },
     removeCustomer: (state, action) => {
-      console.log("RemoveCusotmerState", state);
-      console.log("RemoveCustomerAction", action);
+     
       return state.filter((customer) => customer.id !== action.payload);
     },
     editContact: (state, action) => {
-      console.log("Editing:", action.payload);
       const { age, birthday, data, email, fullName, gender, id, phone } =
         action.payload;
 

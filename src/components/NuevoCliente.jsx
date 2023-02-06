@@ -27,8 +27,7 @@ const NuevoCliente = ({ setCustomerModal }) => {
     if (!formValues.fullName) {
       toast.error("Inserta un nombre para el contacto");
     } else {
-      console.log(formValues);
-      console.log(direcciones);
+     
       dispatch(addCustomer(formValues));
       setCustomerModal(false);
     }

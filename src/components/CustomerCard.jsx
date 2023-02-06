@@ -48,7 +48,7 @@ function CustomerCard({ customer, setCustomerDetails,onClick, setEditView}) {
             {customer.gender}
           </p>
 
-          <hr class="solid" />
+          <hr className="solid" />
         </td>
         <td className="pl-12">
           <p className="font-medium">{customer.age}</p>

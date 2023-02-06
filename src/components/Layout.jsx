@@ -14,7 +14,6 @@ function Layout({ children }) {
   function HandleDropdown() {
     setDropdown(!dropdown);
 
-    console.log(dropdown);
   }
 
   return (
@@ -35,7 +34,7 @@ function Layout({ children }) {
         >
           <div>
             <div className="h-16 w-full flex items-center px-8">
-              <p class="text-gray-900 text-2xl dark:text-white">Tus clientes</p>
+              <p className="text-gray-900 text-2xl dark:text-white">Tus clientes</p>
             </div>
             <ul className="mt-12">
               <li className="flex w-full justify-between text-white hover:text-white hover:bg-[#808cf6] cursor-pointer items-center py-3 px-8">

@@ -13,7 +13,6 @@ const CustomerEdit = ({ setEditView,customer }) => {
 
   const dispatch = useDispatch()
   let { age, birthday, data, email, fullName, gender, id, phone } = customer;
-  console.log(customer)
   const [formValues, setFormValues] = useState({age, birthday, email, fullName, gender, id, phone});
   const [direcciones, setDirecciones] = useState(data);
 
@@ -39,8 +38,7 @@ const CustomerEdit = ({ setEditView,customer }) => {
     if (!formValues.fullName) {
         toast.error("El contancto no puede quedarse sin nombre");
       } else {
-    console.log(formValues);
-    console.log(direcciones)
+
     dispatch(editContact(formValues))
     setEditView(false)}
     

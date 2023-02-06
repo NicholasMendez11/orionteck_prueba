@@ -17,7 +17,6 @@ export default function Home() {
   const [editView, setEditView] = useState(false)
   
   useEffect(()=>{
-    console.log(selected)
       setData(selected)
   },[selected])
   return (
