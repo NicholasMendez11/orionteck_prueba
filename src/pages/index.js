@@ -1,13 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import CustomerCard from "@/components/CustomerCard";
 import NuevoCliente from "@/components/NuevoCliente";
-
+import CustomerDetails from "@/components/CustomerDetails";
+import CustomerEdit from "@/components/CusomerEdit";
+import Lottie from "lottie-react";
+import Empty from "../../public/assets/empty.json";
 export default function Home() {
+
   const [customerModal, setCustomerModal] = useState(false)
+  const [customerDetails, setCustomerDetails] = useState(false)
+  const [selected, setSelected ] = useState({})
   const customers =  useSelector((state)=> state.customer)
-  console.log(customers)
+  const [data, setData] = useState({})
+  const [editView, setEditView] = useState(false)
+  
+  useEffect(()=>{
+    console.log(selected)
+      setData(selected)
+  },[selected])
   return (
     <>
     
@@ -27,7 +39,7 @@ export default function Home() {
           </div>
         </div>
         <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
-          <table className="w-full whitespace-nowrap">
+          { customers.length >=1 ? <table className="w-full whitespace-nowrap">
             <thead>
               <tr className="h-16 w-full text-sm leading-none text-gray-800">
                 <th className="font-normal text-left pl-4">Cliente</th>
@@ -38,11 +50,17 @@ export default function Home() {
               </tr>
             </thead>
             {customers.map(customer => (
-              <CustomerCard customer={customer} key={customer.id}/>
+              <CustomerCard customer={customer} key={customer.id} setCustomerDetails={setCustomerDetails} setEditView={setEditView} onClick={()=>setSelected(customer)}/>
             ))}
-          </table>
+          </table>:<div>
+          <Lottie animationData={Empty} loop={true} style={{height:500}} />
+            <h1>No hay nada aqui</h1>
+            <p>Intenta agregando un nuevo <span onClick={()=>setCustomerModal(true)} className=" text-[#2F76E6] hover:text-[#808cf6] hover:cursor-pointer ">Cliente</span></p>
+            </div>}
         </div>
         {customerModal && <NuevoCliente setCustomerModal={setCustomerModal}/>}
+        {customerDetails && <CustomerDetails setCustomerDetails={setCustomerDetails} customer={data}/>}
+        {editView && <CustomerEdit setEditView={setEditView} customer={data}/>}
       </div>
       
     </>

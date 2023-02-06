@@ -1,67 +1,91 @@
-import React, { useState, useId } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCustomer } from "../redux/features/customers/customers";
-import { IoAddOutline, IoRemoveOutline } from "react-icons/io5";
-import toast, { Toaster } from "react-hot-toast";
-const NuevoCliente = ({ setCustomerModal }) => {
-  const dispatch = useDispatch();
-  const id = useId();
-  const [formValues, setFormValues] = useState({});
-  const [direcciones, setDirecciones] = useState([
-    {
-      direccion: "",
-    },
-  ]);
+import { editContact,removeCustomer } from "../redux/features/customers/customers";
+import { IoAddOutline,IoRemoveOutline } from "react-icons/io5";
+import toast, { Toaster } from 'react-hot-toast';
+
+
+const CustomerEdit = ({ setEditView,customer }) => {
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setTimeout(() => setLoading(true), 1000)
+     })
+
+  const dispatch = useDispatch()
+  let { age, birthday, data, email, fullName, gender, id, phone } = customer;
+  console.log(customer)
+  const [formValues, setFormValues] = useState({age, birthday, email, fullName, gender, id, phone});
+  const [direcciones, setDirecciones] = useState(data);
+
+
+
+  
+
+
+
 
   const handleTextSatateChange = (e) => {
-    setFormValues({ ...formValues, [e.target.name]: e.target.value, id });
+    setFormValues({ ...formValues, [e.target.name]: e.target.value});
   };
-  const handleDirectionSatateChange = (e, index) => {
-    let data = [...direcciones];
-    data[index][e.target.name] = e.target.value;
-    setDirecciones(data);
-    setFormValues({ ...formValues, data });
+  const handleDirectionSatateChange = (e,index) => {
+   let data = [...direcciones];
+   data[index][e.target.name] = e.target.value;
+   setDirecciones(data)
+   setFormValues({...formValues,data})
+
   };
 
   const handleSubmit = () => {
     if (!formValues.fullName) {
-      toast.error("Inserta un nombre para el contacto");
-    } else {
-      console.log(formValues);
-      console.log(direcciones);
-      dispatch(addCustomer(formValues));
-      setCustomerModal(false);
+        toast.error("El contancto no puede quedarse sin nombre");
+      } else {
+    console.log(formValues);
+    console.log(direcciones)
+    dispatch(editContact(formValues))
+    setEditView(false)}
+    
+
+    
+  };
+
+  const handleAddAddress = () =>{
+        let object ={
+          direccion:''
+        }
+        setDirecciones([...direcciones,object])
+          
     }
-  };
 
-  const handleAddAddress = () => {
-    let object = {
-      direccion: "",
-    };
-    setDirecciones([...direcciones, object]);
-  };
+    const removeAddress = (index) =>{
+      let data = [...direcciones]
+      data.splice(index,1)
+      setDirecciones(data)
+      setFormValues({...formValues,data})
+    }
 
-  const removeAddress = (index) => {
-    let data = [...direcciones];
-    data.splice(index, 1);
-    setDirecciones(data);
-    setFormValues({ ...formValues, data });
-  };
+    const handleClose = () =>{
+        setEditView(false)
+    }
+    const handleDelete = () => {
+        dispatch(removeCustomer(id));
+        setEditView(false)
+
+      };
+
+  
 
   return (
     <div>
-      <div>
-        <Toaster />
-      </div>
+        <div><Toaster/></div>
       <div
-        className="py-12 bg-[#22212175] transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
+        className="py-2 bg-[#22212175] transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
         id="modal"
       >
         <div
           role="alert"
           className="container mx-auto w-11/12 md:w-2/3 max-w-lg"
         >
-          <div className="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+          <div className="relative py-3 px-3 md:px-10 bg-white shadow-md rounded border border-gray-400 ">
             <div className="w-full flex justify-start text-gray-600 mb-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +105,7 @@ const NuevoCliente = ({ setCustomerModal }) => {
               </svg>
             </div>
             <h1 className="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">
-              Informacion del nuevo cliente
+              Edita la informacion del cliente
             </h1>
             <div>
               <label
@@ -96,6 +120,7 @@ const NuevoCliente = ({ setCustomerModal }) => {
                 className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                 placeholder="Roberto Mendez"
                 onChange={(e) => handleTextSatateChange(e)}
+                value={(formValues.fullName)}
               />
             </div>
             <div className="md:flex w-full">
@@ -112,6 +137,7 @@ const NuevoCliente = ({ setCustomerModal }) => {
                   id="countries"
                   onChange={(e) => handleTextSatateChange(e)}
                   className="mb-5 mt-2 p-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                  value={(formValues.gender)}
                 >
                   <option value="Seleccionar">Seleccionar</option>
                   <option value="Hombre">Hombre</option>
@@ -134,6 +160,7 @@ const NuevoCliente = ({ setCustomerModal }) => {
                   className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal  h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                   placeholder="0"
                   onChange={(e) => handleTextSatateChange(e)}
+                  value={(formValues.age)}
                 />
               </div>
             </div>
@@ -152,6 +179,7 @@ const NuevoCliente = ({ setCustomerModal }) => {
                 className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                 placeholder="MM/YY"
                 onChange={(e) => handleTextSatateChange(e)}
+                value={(formValues.birthday)}
               />
             </div>
 
@@ -169,6 +197,7 @@ const NuevoCliente = ({ setCustomerModal }) => {
                 className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                 placeholder="fulano@email.com"
                 onChange={(e) => handleTextSatateChange(e)}
+                value={(formValues.email)}
               />
             </div>
 
@@ -204,60 +233,59 @@ const NuevoCliente = ({ setCustomerModal }) => {
                 className="mb-8 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                 placeholder="000-000-0000"
                 onChange={(e) => handleTextSatateChange(e)}
+                value={(formValues.phone)}
               />
             </div>
-            {direcciones.map((item, index) => (
+            {direcciones && direcciones.map((item,index)=>(
               <div key={index}>
                 <label
-                  htmlFor="direccion"
-                  className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
-                >
-                  Direccion #{index}
-                </label>
-                <div className="relative mb-5 mt-2 flex items-center">
-                  <input
-                    name="direccion"
-                    type="text"
-                    className="text-gray-600 focus:outline-none mr-2 p-2 focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                    placeholder="Calle # "
-                    onChange={(e) => handleDirectionSatateChange(e, index)}
-                    value={item.direccion}
-                  />
-                  <div className="hover:cursor-pointer ">
-                    <IoAddOutline
-                      size={25}
-                      color={"#2F76E6"}
-                      onClick={() => handleAddAddress()}
-                    />
-                  </div>
-                  <div className="hover:cursor-pointer ">
-                    <IoRemoveOutline
-                      size={25}
-                      color={"red"}
-                      onClick={() => removeAddress(index)}
-                    />
-                  </div>
-                </div>
+              htmlFor="direccion"
+              className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
+            >
+              Direccion #{index}
+            </label>
+            <div className="relative mb-5 mt-2 flex items-center">
+              <input
+                name="direccion"
+                type="text"
+                className="text-gray-600 focus:outline-none mr-2 p-2 focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                placeholder="Calle # "
+                onChange={(e) => handleDirectionSatateChange(e,index)}
+                value={item.direccion}
+              />
+               <div className="hover:cursor-pointer ">
+              <IoAddOutline size={25} color={'#2F76E6'} onClick={()=>handleAddAddress()} />
+              
+              </div>
+               <div className="hover:cursor-pointer ">
+              <IoRemoveOutline size={25} color={'red'} onClick={()=>removeAddress(index)} />
+              
+              </div>
+              </div>
               </div>
             ))}
-
+             
+            
             <div className="flex items-center justify-start w-full">
-              <button
-                className="focus:outline-none transition duration-150 ease-in-out bg-[#2F76E6] hover:bg-[#808cf6] f rounded text-white px-8 py-2 text-sm"
-                onClick={handleSubmit}
-              >
-                Guardar
+              <button className="focus:outline-none transition duration-150 ease-in-out bg-[#2F76E6] hover:bg-[#808cf6] f rounded text-white px-8 py-2 text-sm" onClick={handleSubmit}>
+                Submit
               </button>
               <button
                 className="focus:outline-none ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
-                onClick={() => setCustomerModal(false)}
+                onClick={handleClose}
               >
-                Cancelar
+                Cancel
+              </button>
+              <button
+                className="focus:outline-none ml-3  transition duration-150 text-gray-200 ease-in-out hover:border-gray-400 bg-[#6e0000] hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                onClick={handleDelete}
+              >
+                Eliminar
               </button>
             </div>
             <div
               className="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out"
-              onClick={() => setCustomerModal(false)}
+              onClick={handleClose}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -283,4 +311,4 @@ const NuevoCliente = ({ setCustomerModal }) => {
     </div>
   );
 };
-export default NuevoCliente;
+export default CustomerEdit;
