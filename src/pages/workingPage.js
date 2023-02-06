@@ -3,7 +3,7 @@ import Progress from "../../public/assets/progress.json";
 export default function WorkingPage() {
   return (
    <div className="md:ml-40">
-    <h1 className="text-2xl">Let's build it together </h1>
+    <h1 className="text-2xl">Let&apos;s build it together </h1>
     <p>I am willing to improve, collaborate and participate.</p>
     <div className="text-2xl">
 
