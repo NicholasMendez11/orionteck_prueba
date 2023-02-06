@@ -24,12 +24,12 @@ function Layout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-no-wrap">
+      <div className="flex  flex-no-wrap">
         <div
           className={
             dropdown
-              ? "w-64 absolute sm:relative bg-[#2F76E6] shadow h-screen flex-col justify-between sm:flex"
-              : "w-64 absolute sm:relative bg-[#2F76E6] shadow h-screen md:h-screen flex-col justify-between hidden sm:flex"
+              ? "w-64 absolute  bg-[#2F76E6] shadow h-screen flex-col justify-between sm:flex"
+              : "w-64 absolute  bg-[#2F76E6] shadow h-screen md:h-screen flex-col justify-between hidden sm:flex"
           }
         >
           <div>
@@ -125,7 +125,7 @@ function Layout({ children }) {
             aria-label="Main Menu"
             aria-haspopup="true"
             xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-menu cursor-pointer"
+            className="icon icon-tabler icon-tabler-menu cursor-pointer m-3"
             width={30}
             height={30}
             viewBox="0 0 24 24"
