@@ -7,9 +7,6 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const CustomerEdit = ({ setEditView,customer }) => {
     const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setTimeout(() => setLoading(true), 1000)
-     })
 
   const dispatch = useDispatch()
   let { age, birthday, data, email, fullName, gender, id, phone } = customer;
@@ -266,13 +263,13 @@ const CustomerEdit = ({ setEditView,customer }) => {
             
             <div className="flex items-center justify-start w-full">
               <button className="focus:outline-none transition duration-150 ease-in-out bg-[#2F76E6] hover:bg-[#808cf6] f rounded text-white px-8 py-2 text-sm" onClick={handleSubmit}>
-                Submit
+                Guardar
               </button>
               <button
                 className="focus:outline-none ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
                 onClick={handleClose}
               >
-                Cancel
+                Cancelar
               </button>
               <button
                 className="focus:outline-none ml-3  transition duration-150 text-gray-200 ease-in-out hover:border-gray-400 bg-[#6e0000] hover:bg-gray-300 border rounded px-8 py-2 text-sm"

@@ -16,7 +16,8 @@ function CustomerCard({ customer, setCustomerDetails,onClick, setEditView}) {
 
   const handleEdit =() =>{
     onClick()
-    setEditView(true)
+    setTimeout(()=>{setEditView(true)},100)
+    
     setShow(null)
   }
 
