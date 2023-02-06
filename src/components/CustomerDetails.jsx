@@ -80,7 +80,7 @@ export default function CustomerDetails({ setCustomerDetails, customer }) {
                 >
                   {data &&
                     data.map((address, index) => (
-                      <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                      <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm" key={index}>
                         <div className="flex w-0 flex-1 items-center">
                           <div
                             className="h-5 w-5 flex-shrink-0 text-gray-400"
